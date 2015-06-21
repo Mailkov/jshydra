@@ -20,7 +20,8 @@ def doRewrite(files, args):
     os.path.join(baseDir, 'scripts', 'abprewrite.js'),
     '--arg', ' '.join(args)
   ] + files
-  return subprocess.check_output(command, env=env).replace('\r', '')
+  result = subprocess.Popen(command,  stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env).communicate()[0]
+  return result.replace('\r', '')
 
 if __name__ == '__main__':
   try:
